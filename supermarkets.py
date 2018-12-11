@@ -24,7 +24,9 @@ del supermarkets[0] #tp get rid of the first line of the csv file
 stores=set([i[1] for i in supermarkets]) #create a unique list of stores
 
 final_list=[]
-final_coordinates=[]
+x_list=[]
+y_list=[]
+name_list=[]
 for i in stores:
 	easting=0
 	northing=0
@@ -37,10 +39,15 @@ for i in stores:
 	x=easting/n
 	y=northing/n
 	final_list.append([i,x,y]) #list with market names and coordinates
-	final_coordinates.append([x,y]) #list with coordinates only
-
+	name_list.append(i) #supermarket names
+	x_list.append(x) #x coord's
+	y_list.append(y) #y coord's
 print(final_list) 
-#print(final_coordinates)
 
-#print(*zip(*final_coordinates))
-plt.scatter(*zip(*final_coordinates))
+fig, ax = plt.subplots(figsize=(10,10))
+plt.xlabel("X coordinate")
+plt.ylabel("Y coordinate")
+ax.scatter(x_list, y_list)
+
+for i, txt in enumerate(name_list):
+    ax.annotate(txt, (x_list[i], y_list[i]))
